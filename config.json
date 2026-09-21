@@ -1,0 +1,114 @@
+{
+  "random_seed": 430000,
+  "output_dir": "outputs",
+  "windows": [
+    {
+      "window_id": "window_1",
+      "train_start": "2017-07-03",
+      "train_end": "2021-08-18",
+      "valid_start": "2021-08-19",
+      "valid_end": "2022-09-01",
+      "test_start": "2022-09-02",
+      "test_end": "2023-09-14"
+    },
+    {
+      "window_id": "window_2",
+      "train_start": "2018-07-12",
+      "train_end": "2022-09-01",
+      "valid_start": "2022-09-02",
+      "valid_end": "2023-09-14",
+      "test_start": "2023-09-15",
+      "test_end": "2024-10-08"
+    },
+    {
+      "window_id": "window_3",
+      "train_start": "2019-07-25",
+      "train_end": "2023-09-14",
+      "valid_start": "2023-09-15",
+      "valid_end": "2024-10-08",
+      "test_start": "2024-10-09",
+      "test_end": "2025-10-21"
+    }
+  ],
+  "method": {
+    "hmm": {
+      "states": 2,
+      "features": [
+        "mkt_drawdown_60",
+        "mkt_downside_vol_20",
+        "cs_ret_dispersion_5_ma20"
+      ],
+      "state_label_column": "mkt_ret_20",
+      "covariance_type": "full",
+      "initializations": 10,
+      "seed_start": 0,
+      "max_iterations": 500
+    },
+    "signal_selection": {
+      "factors_per_state": 3,
+      "maximum_abs_training_ic_correlation": 0.85
+    },
+    "portfolio": {
+      "target_holdings": 24,
+      "entry_rank": 20,
+      "exit_rank": 30,
+      "maximum_replacements": 3,
+      "volatility_lookback": 60,
+      "minimum_volatility_observations": 40,
+      "maximum_stock_weight": 0.1
+    }
+  },
+  "markets": {
+    "a_share": {
+      "display_name": "CSI 300",
+      "data_dir": "data/a_share",
+      "corporate_actions": "data/a_share/corporate_actions.csv",
+      "benchmark_value_column": "total_return_index",
+      "factor_files": {
+        "ff3": null,
+        "ch3": null
+      },
+      "xgboost": {
+        "max_depth": 1,
+        "learning_rate": 0.03,
+        "min_child_weight": 50.0,
+        "n_estimators": 60,
+        "subsample": 1.0,
+        "colsample_bytree": 1.0,
+        "gamma": 0.0,
+        "reg_alpha": 0.0,
+        "reg_lambda": 1.0,
+        "n_jobs": 12
+      },
+      "costs": {
+        "initial_capital": 100000000,
+        "commission_bps": 3.0,
+        "minimum_commission": 5.0
+      }
+    },
+    "us_stock": {
+      "display_name": "S&P 500",
+      "data_dir": "data/us_stock",
+      "corporate_actions": "data/us_stock/corporate_actions.csv",
+      "benchmark_value_column": "total_return_index",
+      "factor_files": {
+        "ff5": null
+      },
+      "xgboost": {
+        "max_depth": 2,
+        "learning_rate": 0.0075,
+        "min_child_weight": 100.0,
+        "n_estimators": 300,
+        "subsample": 1.0,
+        "colsample_bytree": 1.0,
+        "gamma": 0.05,
+        "reg_alpha": 0.0,
+        "reg_lambda": 1.0,
+        "n_jobs": 12
+      },
+      "costs": {
+        "initial_capital": 100000000
+      }
+    }
+  }
+}
